@@ -14,8 +14,9 @@ function createFriendInputs() {
     for (let i = 1; i <= numFriends; i++) {
         friendInputsHTML += `
             <div class="input-group">
-                <label for="person${i}">Persona ${i}:</label>
-                <input type="number" id="person${i}" placeholder="Monto">
+                <label for="name${i}">Amigo ${i}:</label>
+                <input type="text" id="name${i}" placeholder="Ingresar nombre">
+                <input type="number" id="amount${i}" placeholder="Plata que puso">
             </div>
         `;
     }
@@ -27,7 +28,7 @@ function calculateSplit() {
     const friendAmounts = [];
 
     for (let i = 1; i <= numFriends; i++) {
-        const amount = parseFloat(document.getElementById(`person${i}`).value) || 0;
+        const amount = parseFloat(document.getElementById(`amount${i}`).value) || 0;
         friendAmounts.push(amount);
     }
 
@@ -54,7 +55,9 @@ function calculateSplit() {
                     owes[i] -= amountToPay;
                     owes[j] += amountToPay;
                     if (amountToPay > 0) {
-                        resultHTML += `Persona ${i + 1} le debe pagar a Persona ${j + 1}: $${amountToPay.toFixed(2)}<br>`;
+                        const nameI = document.getElementById(`name${i + 1}`).value;
+                        const nameJ = document.getElementById(`name${j + 1}`).value;
+                        resultHTML += `${nameI} le debe pagar a ${nameJ}: $${amountToPay.toFixed(2)}<br>`;
                     }
                 }
             }
